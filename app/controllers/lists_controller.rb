@@ -1,4 +1,4 @@
-class ListsController < ApplicationController
+
   class ListsController < ApplicationController
     def index
       @lists = List.all
@@ -15,7 +15,7 @@ class ListsController < ApplicationController
     def create
       @list = List.new(list_params)
       if @list.save
-        redirect_to @list, notice: 'List was successfully created.'
+        redirect_to list_path(@list), notice: 'List was successfully created.'
       else
         render :new
       end
@@ -46,4 +46,3 @@ class ListsController < ApplicationController
       params.require(:list).permit(:name, :description)
     end
   end
-end

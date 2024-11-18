@@ -1,0 +1,17 @@
+<h2><%= @list.name %></h2>
+
+<ul>
+<li>
+<% @bookmark.each do |bookmark| %>
+<%= bookmark %>
+</li>
+<li>
+<%= link_to "Edit this list", edit_list_path %>
+</li>
+<li>
+<%= link_to "Add a bookmark to this list", new_bookmark_path %>
+</li>
+<li>
+<%= link_to "All lists", lists_path %>
+</li>
+</ul>

@@ -1,19 +1,5 @@
-class BookmarksController < ApplicationController
+
   class BookmarksController < ApplicationController
-    # Optional: Add authentication/authorization
-    before_action :authenticate_user!
-
-    # Optional: Set up a common finder for individual bookmarks
-    before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
-
-    def index
-      # Retrieve all bookmarks, potentially scoped to current user
-      @bookmarks = current_user.bookmarks.order(created_at: :desc)
-    end
-
-    def show
-      # Show details of a specific bookmark
-    end
 
     def new
       # Initialize a new bookmark
@@ -21,24 +7,11 @@ class BookmarksController < ApplicationController
     end
 
     def create
-      @bookmark = current_user.bookmarks.build(bookmark_params)
-
+      @bookmark = Bookmark.new(bookmark_params)
       if @bookmark.save
-        redirect_to @bookmark, notice: 'Bookmark was successfully created.'
+        redirect_to lists_path
       else
         render :new
-      end
-    end
-
-    def edit
-      # Prepare a bookmark for editing
-    end
-
-    def update
-      if @bookmark.update(bookmark_params)
-        redirect_to @bookmark, notice: 'Bookmark was successfully updated.'
-      else
-        render :edit
       end
     end
 
@@ -49,18 +22,12 @@ class BookmarksController < ApplicationController
 
     private
 
-    def set_bookmark
-      @bookmark = current_user.bookmarks.find(params[:id])
-    end
 
     def bookmark_params
       params.require(:bookmark).permit(
-        :title,
-        :url,
-        :description,
+        :comment,
         :list_id,  # If bookmarks can belong to lists
-        :tag_list   # If you're using tags
+        :movie_id   # If you're using tags
       )
     end
   end
-end
